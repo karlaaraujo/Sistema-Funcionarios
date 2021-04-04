@@ -2,7 +2,7 @@ package sistema;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import sistema.telas.Login;
+import sistema.telas.CargosInserir;
 
 public class Sistema {
     public static JPanel tela;
@@ -13,12 +13,14 @@ public class Sistema {
     }
 
     private static void criarComponentes(){
+        //cria JFrame
         frame = new JFrame("Sistema");
         frame.setSize(700, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
-        tela = new Login();
+
+        tela = new CargosInserir();
         tela.setVisible(true);
         frame.add(tela);
 

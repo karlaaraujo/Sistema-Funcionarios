@@ -2,6 +2,8 @@ package sistema.telas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Login extends JPanel {
@@ -16,9 +18,9 @@ public class Login extends JPanel {
         //criarEventos();
     }
     private void criarComponentes(){
-        setLayout(null);//define que não usaremos gerenciador de layout
+        setLayout(null);// define que não usaremos gerenciador de layout
 
-        //instanciando componentes da tela
+        // instanciando componentes da tela
         JLabel labelTitulo = new JLabel("Seja Bem VIndo ao Sistema da Company SA!", JLabel.CENTER);
         labelTitulo.setFont(new Font(labelTitulo.getFont().getName(), Font.PLAIN, 18));
         labelUsuario = new JLabel("Usuário", JLabel.LEFT);//inicia JLabel com texto e alinhamento especifico
@@ -27,7 +29,7 @@ public class Login extends JPanel {
         campoSenha = new JPasswordField();
         botaoEntrar = new JButton("Entrar");
 
-        //definindo posicionamento e tamanho dos componentes na tela
+        // definindo posicionamento e tamanho dos componentes na tela
         labelTitulo.setBounds(20, 100, 660, 40);
         labelUsuario.setBounds(250, 220, 200, 20);
         campoUsuario.setBounds(250, 240, 200, 40);
@@ -35,7 +37,7 @@ public class Login extends JPanel {
         campoSenha.setBounds(250, 300, 200, 40);
         botaoEntrar.setBounds(250, 350, 200, 40);
 
-        //adicionando os componentes à tela
+        // adicionando os componentes à tela
         add(labelTitulo);
         add(labelUsuario);
         add(campoUsuario);
@@ -43,7 +45,15 @@ public class Login extends JPanel {
         add(campoSenha);
         add(botaoEntrar);
 
-        //tornando a tela visível
+        // tornando a tela visível
         setVisible(true);
     }
+
+//    private void criarEventos (){
+//        botaoEntrar.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            }
+//        });
+//    }
 }

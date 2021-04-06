@@ -3,8 +3,6 @@ package sistema;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import sistema.telas.CargosConsultar;
-
 public class Sistema {
     public static JPanel tela;
     public static JFrame frame;
@@ -14,17 +12,13 @@ public class Sistema {
     }
 
     private static void criarComponentes(){
-        //cria JFrame
+        // cria JFrame
         frame = new JFrame("Sistema");
         frame.setSize(700, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
 
-        tela = new CargosConsultar();
-        tela.setVisible(true);
-        frame.add(tela);
-
-        frame.setVisible(true);
+       Navegador.login();
     }
 }

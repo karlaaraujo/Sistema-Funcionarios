@@ -3,24 +3,19 @@ package sistema.telas;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import sistema.BancoDeDados;
+import sistema.Navegador;
 import sistema.entidades.Cargo;
-
-
 
 public class CargosConsultar extends JPanel{
 
@@ -86,6 +81,7 @@ public class CargosConsultar extends JPanel{
         botaoEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Navegador.cargosEditar(cargoAtual);
             }
         });
         botaoExcluir.addActionListener(new ActionListener() {

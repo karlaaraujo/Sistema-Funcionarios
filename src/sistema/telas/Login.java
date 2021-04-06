@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import sistema.Navegador;
 
 
 public class Login extends JPanel {
@@ -15,7 +16,7 @@ public class Login extends JPanel {
 
     public Login(){
         criarComponentes();
-        //criarEventos();
+        criarEventos();
     }
     private void criarComponentes(){
         setLayout(null);// define que não usaremos gerenciador de layout
@@ -49,11 +50,17 @@ public class Login extends JPanel {
         setVisible(true);
     }
 
-//    private void criarEventos (){
-//        botaoEntrar.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//            }
-//        });
-//    }
+    private void criarEventos (){
+        botaoEntrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // validando as credenciais
+                if(campoUsuario.getText().equals("admin") && new String(campoSenha.getPassword()).equals("admin")) {
+                    Navegador.inicio();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Acesso não permitido");
+                }
+            }
+        });
+    }
 }

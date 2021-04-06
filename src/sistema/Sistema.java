@@ -2,7 +2,8 @@ package sistema;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import sistema.telas.CargosInserir;
+
+import sistema.telas.CargosConsultar;
 
 public class Sistema {
     public static JPanel tela;
@@ -20,7 +21,7 @@ public class Sistema {
         frame.setLocationRelativeTo(null);
 
 
-        tela = new CargosInserir();
+        tela = new CargosConsultar();
         tela.setVisible(true);
         frame.add(tela);
 

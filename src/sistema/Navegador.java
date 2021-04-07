@@ -6,9 +6,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import sistema.entidades.Cargo;
+import sistema.entidades.Funcionario;
 import sistema.telas.CargosConsultar;
 import sistema.telas.CargosInserir;
 import sistema.telas.CargosEditar;
+import sistema.telas.FuncionariosInserir;
 import sistema.telas.Inicio;
 import sistema.telas.Login;
 
@@ -48,7 +50,16 @@ public class Navegador {
         Sistema.frame.setTitle("Funcionarios Company SA -  Editar Cargos");
         Navegador.atualizarTela();
     }
-
+    public static void funcionariosCadastrar() {
+        Sistema.tela = new FuncionariosInserir();
+        Sistema.frame.setTitle("Funcionarios Company SA - Cadastrar Funcionarios");
+        Navegador.atualizarTela();
+    }
+//    public static void funcionariosConsultar() {
+//        Sistema.tela = new FuncionariosConsultar();
+//        Sistema.frame.setTitle("Funcionarios Company SA - Cadastrar Cargos");
+//        Navegador.atualizarTela();
+//    }
     // método que remove a tela atual e adiciona a próxima tela
     private static void atualizarTela() {
         Sistema.frame.getContentPane().removeAll();
@@ -124,9 +135,10 @@ public class Navegador {
         miFuncionariosCadastrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                funcionariosCadastrar();
             }
         });
-        miCargosConsultar.addActionListener(new ActionListener() {
+        miFuncionariosConsultar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             }

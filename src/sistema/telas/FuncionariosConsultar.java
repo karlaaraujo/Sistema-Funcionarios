@@ -15,18 +15,18 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import sistema.BancoDeDados;
 import sistema.Navegador;
-import sistema.entidades.Cargo;
+import sistema.entidades.Funcionario;
 
-public class CargosConsultar extends JPanel{
+public class FuncionariosConsultar extends JPanel{
 
-    Cargo cargoAtual;
-    JLabel labelTitulo, labelCargo;
-    JTextField campoCargo;
+    Funcionario funcionarioAtual;
+    JLabel labelTitulo, labelFuncionario;
+    JTextField campoFuncionario;
     JButton botaoPesquisar, botaoEditar, botaoExcluir;
-    DefaultListModel<Cargo> listasCargosModelo = new DefaultListModel();
-    JList<Cargo> listaCargos;
+    DefaultListModel<Funcionario> listasFuncionariosModelo = new DefaultListModel();
+    JList<Funcionario> listaFuncionarios;
 
-    public CargosConsultar(){
+    public FuncionariosConsultar(){
         criarComponentes();
         criarEventos();
     }
@@ -35,34 +35,34 @@ public class CargosConsultar extends JPanel{
         setLayout(null);
 
         // instanciando componentes da tela
-        labelTitulo = new JLabel("Consulta de Cargos", JLabel.CENTER);
+        labelTitulo = new JLabel("Consulta de Funcionários", JLabel.CENTER);
         labelTitulo.setFont(new Font(labelTitulo.getFont().getName(), Font.PLAIN, 20));
-        labelCargo = new JLabel("Nome do cargo", JLabel.LEFT);
-        campoCargo = new JTextField();
-        botaoPesquisar = new JButton("Pesquisar Cargo");
-        botaoEditar = new JButton("Editar Cargo");
+        labelFuncionario = new JLabel("Nome do funcionário", JLabel.LEFT);
+        campoFuncionario = new JTextField();
+        botaoPesquisar = new JButton("Pesquisar Funcionario");
+        botaoEditar = new JButton("Editar Funcionario");
         botaoEditar.setEnabled(false);
-        botaoExcluir = new JButton("Excluir Cargo");
+        botaoExcluir = new JButton("Excluir Funcionario");
         botaoExcluir.setEnabled(false);
-        listasCargosModelo = new DefaultListModel();
-        listaCargos = new JList();
-        listaCargos.setModel(listasCargosModelo);
-        listaCargos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listasFuncionariosModelo = new DefaultListModel();
+        listaFuncionarios = new JList();
+        listaFuncionarios.setModel(listasFuncionariosModelo);
+        listaFuncionarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // definindo posicionamento e tamanho dos componentes
         labelTitulo.setBounds(20, 20, 660, 40);
-        labelCargo.setBounds(150, 120, 400, 20);
-        campoCargo.setBounds(150, 140, 400, 40);
+        labelFuncionario.setBounds(150, 120, 400, 20);
+        campoFuncionario.setBounds(150, 140, 400, 40);
         botaoPesquisar.setBounds(560, 140, 130, 40);
-        listaCargos.setBounds(150, 200, 400, 240);
+        listaFuncionarios.setBounds(150, 200, 400, 240);
         botaoEditar.setBounds(560, 360, 130, 40);
         botaoExcluir.setBounds(560, 400, 130, 40);
 
         // adicionando componentes à tela
         add(labelTitulo);
-        add(labelCargo);
-        add(campoCargo);
-        add(listaCargos);
+        add(labelFuncionario);
+        add(campoFuncionario);
+        add(listaFuncionarios);
         add(botaoPesquisar);
         add(botaoEditar);
         add(botaoExcluir);
@@ -75,26 +75,26 @@ public class CargosConsultar extends JPanel{
         botaoPesquisar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sqlPesquisarCargos(campoCargo.getText());
+                sqlPesquisarFuncionarios(campoFuncionario.getText());
             }
         });
         botaoEditar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Navegador.cargosEditar(cargoAtual);
+                Navegador.funcionariosEditar(funcionarioAtual);
             }
         });
         botaoExcluir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sqlDeletarCargo();
+                sqlDeletarFuncionario();
             }
         });
-        listaCargos.addListSelectionListener(new ListSelectionListener() {
+        listaFuncionarios.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                cargoAtual = listaCargos.getSelectedValue();
-                if (cargoAtual == null){
+                funcionarioAtual = listaFuncionarios.getSelectedValue();
+                if (funcionarioAtual == null){
                     botaoEditar.setEnabled(false);
                     botaoExcluir.setEnabled(false);
                 } else {
@@ -105,7 +105,7 @@ public class CargosConsultar extends JPanel{
         });
     }
 
-    private void sqlPesquisarCargos(String nome){
+    private void sqlPesquisarFuncionarios(String nome){
         // conexão
         Connection conexao;
         // instrucao SQL
@@ -119,27 +119,31 @@ public class CargosConsultar extends JPanel{
 
             // criando a instrucao SQL
             instrucaoSQL = conexao.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            resultados = instrucaoSQL.executeQuery("SELECT * FROM cargos WHERE nome like '%" + nome + "%'");
+            resultados = instrucaoSQL.executeQuery("SELECT * FROM funcionarios WHERE nome like '%" + nome + "%' order by nome ASC");
 
-            listasCargosModelo.clear();
+            listasFuncionariosModelo.clear();
 
             while (resultados.next()){
-                Cargo cargo = new Cargo();
-                cargo.setId(resultados.getInt("id"));
-                cargo.setNome(resultados.getString("nome"));
+                Funcionario funcionario = new Funcionario();
+                funcionario.setId(resultados.getInt("id"));
+                funcionario.setNome(resultados.getString("nome"));
+                funcionario.setSobrenome(resultados.getString("sobrenome"));
+                funcionario.setDataNascimento(resultados.getString("dataNascimento"));
+                funcionario.setEmail(resultados.getString("email"));
+                if (resultados.getString("cargo")!= null) funcionario.setCargo(Integer.parseInt(resultados.getString("cargo")));
+                funcionario.setSalario(Double.parseDouble(resultados.getString("salario")));
 
-                listasCargosModelo.addElement(cargo);
+                listasFuncionariosModelo.addElement(funcionario);
             }
         } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao consultar os Cargos.");
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao consultar os funcionários.");
             Logger.getLogger(CargosInserir.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void sqlDeletarCargo(){
-
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o cargo "+
-                cargoAtual.getNome()+"?","Excluir", JOptionPane.YES_NO_OPTION);
+    public void sqlDeletarFuncionario(){
+        String pergunta = "Deseja realmente excluir o funcionário " + funcionarioAtual.getNome() + "?";
+        int confirmacao = JOptionPane.showConfirmDialog(null, pergunta ,"Excluir", JOptionPane.YES_NO_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
 
             // conexão
@@ -155,13 +159,13 @@ public class CargosConsultar extends JPanel{
 
                 // criando a instrucao SQL
                 instrucaoSQL = conexao.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                instrucaoSQL.executeUpdate("DELETE FROM cargos WHERE id="+ cargoAtual.getId()+";");
+                instrucaoSQL.executeUpdate("DELETE FROM funcionarios WHERE id="+ funcionarioAtual.getId()+";");
 
-                JOptionPane.showMessageDialog(null, "Cargo deletado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Funcionario deletado com sucesso!");
                 Navegador.inicio();
 
             } catch (SQLException ex){
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao excluir o Cargo.");
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao excluir o Funcionário.");
                 Logger.getLogger(CargosInserir.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

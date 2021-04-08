@@ -11,6 +11,8 @@ import sistema.telas.CargosConsultar;
 import sistema.telas.CargosInserir;
 import sistema.telas.CargosEditar;
 import sistema.telas.FuncionariosInserir;
+import sistema.telas.FuncionariosConsultar;
+import sistema.telas.FuncionariosEditar;
 import sistema.telas.Inicio;
 import sistema.telas.Login;
 
@@ -55,11 +57,16 @@ public class Navegador {
         Sistema.frame.setTitle("Funcionarios Company SA - Cadastrar Funcionarios");
         Navegador.atualizarTela();
     }
-//    public static void funcionariosConsultar() {
-//        Sistema.tela = new FuncionariosConsultar();
-//        Sistema.frame.setTitle("Funcionarios Company SA - Cadastrar Cargos");
-//        Navegador.atualizarTela();
-//    }
+    public static void funcionariosConsultar() {
+        Sistema.tela = new FuncionariosConsultar();
+        Sistema.frame.setTitle("Funcionarios Company SA - Cadastrar Cargos");
+        Navegador.atualizarTela();
+    }
+    public static void funcionariosEditar(Funcionario funcionario) {
+        Sistema.tela = new FuncionariosEditar(funcionario);
+        Sistema.frame.setTitle("Funcionarios Company SA -  Editar Cargos");
+        Navegador.atualizarTela();
+    }
     // método que remove a tela atual e adiciona a próxima tela
     private static void atualizarTela() {
         Sistema.frame.getContentPane().removeAll();
@@ -141,6 +148,7 @@ public class Navegador {
         miFuncionariosConsultar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                funcionariosConsultar();
             }
         });
 

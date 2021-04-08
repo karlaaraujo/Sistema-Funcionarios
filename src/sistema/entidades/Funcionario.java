@@ -2,8 +2,15 @@ package sistema.entidades;
 
 public class Funcionario {
     String nome, sobrenome, dataNascimento, email;
-    int cargo;
+    int cargo, id;
     double salario;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
+    }
 
     public void setNome(String nome) {
         this.nome = nome;

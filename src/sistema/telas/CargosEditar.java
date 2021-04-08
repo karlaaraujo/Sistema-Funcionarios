@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import sistema.BancoDeDados;
 import sistema.entidades.Cargo;
+import sistema.Navegador;
 
 public class CargosEditar extends JPanel {
 

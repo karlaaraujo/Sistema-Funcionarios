@@ -7,14 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import sistema.entidades.Cargo;
 import sistema.entidades.Funcionario;
-import sistema.telas.CargosConsultar;
-import sistema.telas.CargosInserir;
-import sistema.telas.CargosEditar;
-import sistema.telas.FuncionariosInserir;
-import sistema.telas.FuncionariosConsultar;
-import sistema.telas.FuncionariosEditar;
-import sistema.telas.Inicio;
-import sistema.telas.Login;
+import sistema.telas.*;
 
 
 public class Navegador {
@@ -65,6 +58,16 @@ public class Navegador {
     public static void funcionariosEditar(Funcionario funcionario) {
         Sistema.tela = new FuncionariosEditar(funcionario);
         Sistema.frame.setTitle("Funcionarios Company SA -  Editar Cargos");
+        Navegador.atualizarTela();
+    }
+    public static void relatorioCargos() {
+        Sistema.tela = new RelatoriosCargos();
+        Sistema.frame.setTitle("Funcionarios Company SA - Relatórios");
+        Navegador.atualizarTela();
+    }
+    public static void relatorioSalarios() {
+        Sistema.tela = new RelatoriosSalarios();
+        Sistema.frame.setTitle("Funcionarios Company SA - Relatórios");
         Navegador.atualizarTela();
     }
     // método que remove a tela atual e adiciona a próxima tela
@@ -169,11 +172,13 @@ public class Navegador {
         miRelatoriosCargos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                relatorioCargos();
             }
         });
         miRelatoriosSalarios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                relatorioSalarios();
             }
         });
     }
